@@ -12,7 +12,7 @@ export const corsOptionsDelegate: Parameters<INestApplication['enableCors']>[0] 
 
   const origin = extractOrigin(req);
 
-  if (enableWildcard(req)) {
+  if (enableWildcard(req) || isLocalhostOrigin(origin)) {
     corsOptions.origin = '*';
   } else {
     corsOptions.origin = [];
@@ -29,6 +29,7 @@ export const corsOptionsDelegate: Parameters<INestApplication['enableCors']>[0] 
     if (process.env.WIDGET_BASE_URL) {
       corsOptions.origin.push(process.env.WIDGET_BASE_URL);
     }
+    
   }
 
   const shouldDisableCorsForPreviewUrls = isPermittedDeployPreviewOrigin(origin);
@@ -50,6 +51,11 @@ function enableWildcard(req: Request): boolean {
     isBlueprintRoute(req.url) ||
     isPermittedDeployPreviewOrigin(extractOrigin(req))
   );
+}
+
+function isLocalhostOrigin(origin: string): boolean {
+  const localhostRegex = /^https?:\/\/localhost(:\d+)?$/;
+  return localhostRegex.test(origin);
 }
 
 function isWidgetRoute(url: string): boolean {
