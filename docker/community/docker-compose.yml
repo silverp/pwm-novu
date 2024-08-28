@@ -22,7 +22,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
-      - mongodb:/data/db
+      - ./mongodb_data:/data/db  # Save MongoDB data in the current folder
     ports:
       - 27017:27017
   api:
@@ -185,4 +185,5 @@ services:
     ports:
       - 4701:4701
 volumes:
-  mongodb: ~
+  # Remove the named volume since we're using a bind mount now
+  # mongodb: ~
