@@ -184,6 +184,6 @@ services:
       NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
     ports:
       - 4701:4701
-volumes:
+# volumes:
   # Remove the named volume since we're using a bind mount now
   # mongodb: ~
