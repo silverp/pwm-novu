@@ -6,7 +6,7 @@ services:
     container_name: redis_novu
     restart: unless-stopped
     ports:
-      - "6389:6389"  # Map port 6389 on the host to port 6379 in the container
+      - "6389:6379"  # Map port 6389 on the host to port 6379 in the container
     logging:
       driver: 'none'
   mongodb:
